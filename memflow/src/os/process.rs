@@ -54,16 +54,6 @@ impl ProcessState {
 #[cfg_attr(feature = "plugins", cglue_trait)]
 #[int_result]
 pub trait Process: Send {
-    #[wrap_with_obj(crate::os::module_view::ModuleView)]
-    type ModuleViewType<'a>: crate::os::module_view::ModuleView + 'a
-    where
-        Self: 'a;
-
-    fn module_view(
-        &mut self,
-        target_arch: Option<ArchitectureIdent>,
-    ) -> Result<Self::ModuleViewType<'_>>;
-
     /// Retrieves the state of the process
     fn state(&mut self) -> ProcessState;
 

@@ -87,19 +87,6 @@ pub struct DummyProcess<T> {
 impl<T: PhysicalMemory, V: VirtualTranslate2> Process
     for DummyProcess<VirtualDma<T, V, X86VirtualTranslate>>
 {
-    type ModuleViewType<'a> = DummyModuleView<'a, VirtualDma<T, V, X86VirtualTranslate>> where T: 'a, V: 'a, Self: 'a;
-    //type ModuleViewType<'a> = DummyModuleView<Fwd<&'a mut DummyVirtMem<T>>> where T: 'a;
-
-    fn module_view(
-        &mut self,
-        target_arch: Option<ArchitectureIdent>,
-    ) -> Result<Self::ModuleViewType<'_>> {
-        Ok(DummyModuleView {
-            process: self,
-            target_arch,
-        })
-    }
-
     /// Retrieves virtual address translator for the process (if applicable)
     //fn vat(&mut self) -> Option<&mut Self::VirtualTranslateType>;
 
